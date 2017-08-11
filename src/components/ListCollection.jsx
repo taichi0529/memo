@@ -1,19 +1,34 @@
 import React, {Component} from 'react';
 import List from './List';
 import Memo from '../classes/Memo';
+
+//TODO リファクタリングする場合はcurrentMemoの実装をし直すこと
+//TODO setCurrentMemoでsetStateしているのが悪！
 class ListCollection extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state =  {
+        this.state = {
             data: [],
             currentMemo: null
         };
         this.handleChangeText = this.handleChangeText.bind(this);
         this.handleClickList = this.handleClickList.bind(this);
+
+        //表示用のメモデータ
+        this.dataForList = [];
+
+        this.searchWord = "";
+
+        this.filteredCurrentMemo = null;
+        this.stashedCurrentMemo = null;
+
+
     }
+
+
     createNewMemo() {
         //空の新規メモがあった場合は実行しない。
-        if(this.state.data.length > 0 && this.state.data[0].text === ""){
+        if (this.state.data.length > 0 && this.state.data[0].text === "") {
             return;
         }
 
@@ -22,57 +37,84 @@ class ListCollection extends Component {
         this.setCurrentMemo(memo);
     }
 
-    getCurrentMemo(){
+    getCurrentMemo() {
         return this.state.currentMemo;
     }
 
-    setCurrentMemo(memo){
-        this.state.currentMemo = memo;
+    setCurrentMemo(memo) {
         this.textComponent.setCurrentMemo(memo);
-        this.setState(this.state);
+        this.setState({currentMemo: memo});
     }
 
     save() {
         localStorage.setItem('memoData', JSON.stringify(this.state.data));
         let currentMemoId = null;
-        if(this.state.currentMemo){
+        if (this.state.currentMemo) {
             currentMemoId = this.state.currentMemo.id;
         }
         localStorage.setItem('currentMemoId', currentMemoId);
     }
 
-    search(word){
+    filter() {
+        this.filteredCurrentMemo = null;
+        if(this.searchWord === "") {
+            return this.state.data;
+        }
+        let filteredData = [];
+        for (let memo of this.state.data) {
+            if(memo.text.indexOf(this.searchWord) !== -1){
+                filteredData.push(memo);
+            }
+        }
 
+        //フィルタしたら一番上にcurrentMemoを持って行く。フィルタ数が0だったらnull
+        //TODO フィルタリングを辞めたら元々アクティブだったものをアクティブに
+        if(filteredData.length > 0){
+            this.filteredCurrentMemo = filteredData[0];
+        }
+
+        return filteredData;
     }
 
+    search (word = ""){
+        this.searchWord = word;
+        this.setState(this.state, () => {
+            this.setCurrentMemo(this.filteredCurrentMemo);
+        });
+    }
 
     load() {
         let memoData = JSON.parse(localStorage.getItem('memoData'));
-        if(memoData === null){
+        if (memoData === null) {
             return;
         }
+
+        //localStorageは文字列しか保存出来ないので数字を保存すると文字になってしまう。
         let currentMemoId = parseInt(localStorage.getItem('currentMemoId'), 10);
-        memoData.map((v) => {
+
+        let tmp = [];
+        for(let v of memoData){
             let memo = new Memo(v.data);
-            this.state.data.push(memo);
-            if(currentMemoId !== null && v.data.id === currentMemoId){
+            tmp.push(memo);
+            if (currentMemoId && v.data.id === currentMemoId) {
                 this.setCurrentMemo(memo);
             }
-        });
-        this.setState(this.state);
+        }
+
+        this.setState({data: tmp});
 
     }
 
-    handleChangeText(){
+    handleChangeText() {
         this.save();
         this.setState(this.state);
     }
 
 
-    handleClickList (memo) {
+    handleClickList(memo) {
         //一番初めのデータをクリックしていなくて、空ならデータを削除する。
-        if(this.state.data.length > 0 && this.state.data[0].text === ""){
-            if(memo.id !== this.state.data[0].id) {
+        if (this.state.data.length > 0 && this.state.data[0].text === "") {
+            if (memo.id !== this.state.data[0].id) {
                 this.state.data.shift();
             }
         }
@@ -81,28 +123,27 @@ class ListCollection extends Component {
     }
 
 
-    setTextComponent(textComponent){
+    setTextComponent(textComponent) {
         this.textComponent = textComponent;
     }
 
-    deleteCurrentMemo(){
-        if(this.state.currentMemo === null){
+    deleteCurrentMemo() {
+        if (this.state.currentMemo === null) {
             return;
         }
         let tmp = [];
-        this.state.data.map((d) => {
-            if(d.id !== this.state.currentMemo.id){
-                tmp.push(d);
+        for(let v of this.state.data){
+            if (v.id !== this.state.currentMemo.id) {
+                tmp.push(v);
             }
-        });
-        this.state.data = tmp;
-        if(this.state.data.length > 0){
-            this.setCurrentMemo(this.state.data[0]);
+        }
+        if (tmp.length > 0) {
+            this.setCurrentMemo(tmp[0]);
         } else {
             this.setCurrentMemo(null);
         }
         this.save();
-        this.setState(this.state);
+        this.setState({data: tmp});
     }
 
 
@@ -110,8 +151,9 @@ class ListCollection extends Component {
         return (
             <ul className="list__ui">
                 {
-                    this.state.data.map((memo) => (
-                        <List key={memo.id} memo={memo} handleClickList={this.handleClickList} active={this.state.currentMemo && this.state.currentMemo.id === memo.id}/>
+                    this.filter().map((memo) => (
+                        <List key={memo.id} memo={memo} handleClickList={this.handleClickList}
+                              active={this.state.currentMemo && this.state.currentMemo.id === memo.id}/>
                     ))
                 }
             </ul>
