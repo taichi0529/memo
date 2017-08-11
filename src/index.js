@@ -22,6 +22,7 @@ $(function () {
         listCollection.createNewMemo();
         let currentMemo = listCollection.getCurrentMemo();
         text.setCurrentMemo(currentMemo);
+        $(".text__textarea").focus();
     });
 
     $(".controller__button_delete").on("click", (e) => {
