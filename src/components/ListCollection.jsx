@@ -142,8 +142,8 @@ class ListCollection extends Component {
         } else {
             this.setCurrentMemo(null);
         }
-        this.save();
         this.setState({data: tmp});
+        this.save();
     }
 
 
