@@ -57,26 +57,26 @@ class ListCollection extends Component {
 
     filter() {
         this.filteredCurrentMemo = null;
-        if(this.searchWord === "") {
+        if (this.searchWord === "") {
             return this.state.data;
         }
         let filteredData = [];
         for (let memo of this.state.data) {
-            if(memo.text.indexOf(this.searchWord) !== -1){
+            if (memo.text.indexOf(this.searchWord) !== -1) {
                 filteredData.push(memo);
             }
         }
 
         //フィルタしたら一番上にcurrentMemoを持って行く。フィルタ数が0だったらnull
         //TODO フィルタリングを辞めたら元々アクティブだったものをアクティブに
-        if(filteredData.length > 0){
+        if (filteredData.length > 0) {
             this.filteredCurrentMemo = filteredData[0];
         }
 
         return filteredData;
     }
 
-    search (word = ""){
+    search(word = "") {
         this.searchWord = word;
         this.setState(this.state, () => {
             this.setCurrentMemo(this.filteredCurrentMemo);
@@ -93,7 +93,7 @@ class ListCollection extends Component {
         let currentMemoId = parseInt(localStorage.getItem('currentMemoId'), 10);
 
         let tmp = [];
-        for(let v of memoData){
+        for (let v of memoData) {
             let memo = new Memo(v.data);
             tmp.push(memo);
             if (currentMemoId && v.data.id === currentMemoId) {
@@ -132,7 +132,7 @@ class ListCollection extends Component {
             return;
         }
         let tmp = [];
-        for(let v of this.state.data){
+        for (let v of this.state.data) {
             if (v.id !== this.state.currentMemo.id) {
                 tmp.push(v);
             }

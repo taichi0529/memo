@@ -12,7 +12,7 @@ class Memo {
         }
     }
 
-    updateLastModified (){
+    updateLastModified() {
         this.data.lastModified = Memo.createLastModified();
     }
 
@@ -20,7 +20,7 @@ class Memo {
         return this.data.id;
     }
 
-    set text(text){
+    set text(text) {
         this.data.text = text;
     }
 
@@ -37,7 +37,7 @@ class Memo {
         let nowTime = date.getTime();
         date.setTime(this.data.lastModified);
 
-        if( (nowTime - this.data.lastModified) < 24 * 3600 * 1000) {
+        if ((nowTime - this.data.lastModified) < 24 * 3600 * 1000) {
             return date.getHours() + ":" + ("0" + date.getMinutes()).substr(-2);
         }
         return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();

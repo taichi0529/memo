@@ -31,7 +31,7 @@ $(function () {
     });
 
     $('.controller__search').on('change', (e) => {
-            listCollection.search(e.currentTarget.value);
+        listCollection.search(e.currentTarget.value);
     });
     $('.controller__search').on('keyup', (e) => {
         listCollection.search(e.currentTarget.value);
