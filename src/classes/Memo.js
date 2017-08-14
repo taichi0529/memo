@@ -38,7 +38,7 @@ class Memo {
         date.setTime(this.data.lastModified);
 
         if ((nowTime - this.data.lastModified) < 24 * 3600 * 1000) {
-            return date.getHours() + ":" + ("0" + date.getMinutes()).substr(-2);
+            return ("0" + date.getHours()).substr(-2) + ":" + ("0" + date.getMinutes()).substr(-2);
         }
         return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
         // return this.data.lastModified;
