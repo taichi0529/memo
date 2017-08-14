@@ -26,7 +26,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: npm install
+      - run: yarn install
 
       - save_cache:
           paths:
@@ -34,21 +34,21 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: npm test
+      - run: yarn test
 
       # build!
-      - run: npm run build
+      - run: yarn build
 
-      - run: bash .circleci/setup-heroku.sh
-      - add_ssh_keys:
-        fingerprints:
-          - "ce:e9:5d:a1:3e:e4:f6:36:d0:b7:2b:4a:0d:64:91:3a"
-      # deploy
-      - deploy:
-          name: Deploy Master to Heroku
-          command: |
-            #if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git push heroku develop:master
-            #fi
+#      - run: bash .circleci/setup-heroku.sh
+#      - add_ssh_keys:
+#        fingerprints:
+#          - "ce:e9:5d:a1:3e:e4:f6:36:d0:b7:2b:4a:0d:64:91:3a"
+#      # deploy
+#      - deploy:
+#          name: Deploy Master to Heroku
+#          command: |
+#            #if [ "${CIRCLE_BRANCH}" == "master" ]; then
+#              git push heroku develop:master
+#            #fi
 
 
