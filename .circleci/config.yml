@@ -35,11 +35,13 @@ jobs:
 
       # run tests!
       - run: yarn test
+
+      # build!
       - run: yarn build
 
-
+      # deploy
       - deploy:
-      name: Deploy Master to Heroku
+        name: Deploy Master to Heroku
         command: |
           #if [ "${CIRCLE_BRANCH}" == "master" ]; then
             git push heroku master
