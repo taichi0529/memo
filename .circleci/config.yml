@@ -43,12 +43,12 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "ce:e9:5d:a1:3e:e4:f6:36:d0:b7:2b:4a:0d:64:91:3a"
-#      # deploy
-#      - deploy:
-#          name: Deploy Master to Heroku
-#          command: |
-#            #if [ "${CIRCLE_BRANCH}" == "master" ]; then
-#              git push heroku develop:master
-#            #fi
+      # deploy
+      - deploy:
+          name: Deploy Master to Heroku
+          command: |
+            #if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku develop:master
+            #fi
 
 
