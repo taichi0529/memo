@@ -48,7 +48,7 @@ class Memo {
         let date = new Date();
         date.setTime(this.data.lastModified);
         return date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日 "
-            + date.getHours() + ":" + ("0" + date.getMinutes()).substr(-2);
+            + ("0" + date.getHours()).substr(-2) + ":" + ("0" + date.getMinutes()).substr(-2);
     }
 
     get title() {

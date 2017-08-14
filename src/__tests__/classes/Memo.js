@@ -15,9 +15,9 @@ describe('Test for Memo class', () => {
         test('リスト用で時間表示', () => {
             let d = new Date();
             d.setHours(1);
-            d.setMinutes(1);
+            d.setMinutes(2);
             memo.data.lastModified = d.getTime();
-            expect(memo.lastModifiedForList).toBe("01:01");
+            expect(memo.lastModifiedForList).toBe("01:02");
         });
 
 
