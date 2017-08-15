@@ -49,7 +49,7 @@ jobs:
           path: ~/repo/build
           destination: artifact-file
 
-      - run : bash .circleci/create-artifact.sh
+#      - run : bash .circleci/create-artifact.sh
       # deploy
 #      - deploy:
 #          name: Deploy Master to Heroku
