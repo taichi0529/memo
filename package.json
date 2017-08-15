@@ -14,11 +14,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "yarn eslint",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "preghpages": "npm run build",
-    "ghpages": "gh-pages -d build"
+    "ghpages": "gh-pages -d build",
+    "eslint": "eslint --ext .jsx,.js src/"
   },
   "homepage": "./"
 }

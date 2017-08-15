@@ -1,0 +1,55 @@
+{
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "extends": ["react-app", "eslint:recommended"],
+  "rules": {
+    // === だけ許可
+    "eqeqeq": "error",
+    //インデントはスペース4つに強制
+    "indent": [
+      "error",
+      4,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    //改行コードはLFのみ
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    //consoleメソッドは注意
+    "no-console": "warn",
+    //使っていない変数は注意
+    "no-unused-vars": "warn",
+    //let,constを強制
+    "no-var": "error",
+    //再代入がない限り const を強制
+    // "prefer-const": "error",
+    //React版の変数注意
+    "react/jsx-uses-vars": "warn",
+    // 末尾のセミコロンを強制
+    "semi": [
+      "error",
+      "always"
+    ],
+    //use strictを強制
+    "strict": "error",
+    // JSDocのコメントが有効じゃないと警告
+    "valid-jsdoc": [
+      "warn",
+      {
+        "requireReturn": false
+      }
+    ],
+    // typeofは正しい文字列とだけ比較できる。
+    "valid-typeof": [
+      "error",
+      {
+        "requireStringLiterals": true
+      }
+    ]
+  }
+}
