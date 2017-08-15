@@ -40,9 +40,9 @@ jobs:
       - run: yarn build
 
       - run: bash .circleci/setup-heroku.sh
-      - add_ssh_keys:
-          fingerprints:
-            - "ce:e9:5d:a1:3e:e4:f6:36:d0:b7:2b:4a:0d:64:91:3a"
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "ce:e9:5d:a1:3e:e4:f6:36:d0:b7:2b:4a:0d:64:91:3a"
 
       # ビルドしたファイルをダウンロードできるようにする。
       - run : bash .circleci/create-artifacts.sh
