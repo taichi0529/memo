@@ -53,7 +53,7 @@ class Memo {
 
     get title() {
         let title = "新規メモ";
-        if (this.text != "") {
+        if (this.text !== "") {
             let pos = this.text.indexOf("\n");
             if (pos === -1) {
                 title = this.text;
