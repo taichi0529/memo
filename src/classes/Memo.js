@@ -86,4 +86,5 @@ class Memo {
         return (new Date()).getTime();
     }
 }
+
 export default Memo;
