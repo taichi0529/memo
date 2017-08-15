@@ -37,7 +37,7 @@ jobs:
       - run: yarn test
 
       # build!
-#      - run: yarn build
+      - run: yarn build
 
       - run: bash .circleci/setup-heroku.sh
       - add_ssh_keys:
@@ -47,8 +47,8 @@ jobs:
       - deploy:
           name: Deploy Master to Heroku
           command: |
-            #if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git push heroku develop:master
-            #fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push heroku master
+            fi
 
 
