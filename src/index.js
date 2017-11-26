@@ -9,7 +9,6 @@ import Text from './components/Text';
 
 $(function () {
 //     "use strict";
-    alert(1);
     let listCollection = ReactDOM.render(<ListCollection/>, document.getElementById('list'));
     let text = ReactDOM.render(<Text handleChangeText={listCollection.handleChangeText}
                                      listCollection=""/>, document.getElementById('text'));
