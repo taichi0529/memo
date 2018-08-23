@@ -3,39 +3,17 @@ import './css/sanitize.css';
 import './css/style.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as $ from "jquery";
 import Controller from './components/Controller';
 import ListCollection from './components/ListCollection';
 import Text from './components/Text';
 
-$(function () {
-  const controller = ReactDOM.render(<Controller/>, document.getElementById('controller'));
-  const listCollection = ReactDOM.render(<ListCollection/>, document.getElementById('list'));
-  const text = ReactDOM.render(<Text handleChangeText={listCollection.handleChangeText}
-                                     listCollection=""/>, document.getElementById('text'));
-  listCollection.setTextComponent(text);
-  text.setCurrentMemo(listCollection.getCurrentMemo());
-  listCollection.load();
+const listCollection = ReactDOM.render(<ListCollection/>, document.getElementById('list'));
+const text = ReactDOM.render(<Text handleChangeText={listCollection.handleChangeText}
+                                   listCollection=""/>, document.getElementById('text'));
+listCollection.setTextComponent(text);
+text.setCurrentMemo(listCollection.getCurrentMemo());
+listCollection.load();
 
-  //コントローラー部分もReactにしたかったけれど時間切れ・・・・
-  $(".controller__button_new").on("click", (e) => {
-    e.preventDefault();
-    listCollection.createNewMemo();
-    let currentMemo = listCollection.getCurrentMemo();
-    text.setCurrentMemo(currentMemo);
-    $(".text__textarea").focus();
-  });
-
-  $(".controller__button_delete").on("click", (e) => {
-    e.preventDefault();
-    listCollection.deleteCurrentMemo();
-  });
-
-  $('.controller__search').on('change', (e) => {
-    listCollection.search(e.currentTarget.value);
-  });
-  $('.controller__search').on('keyup', (e) => {
-    listCollection.search(e.currentTarget.value);
-  });
-
-});
+// setTextComponent見たいしても、下記みたいにpropsで渡しても同じ事はできる。
+ReactDOM.render(<Controller
+  listCollection={listCollection} text={text} />, document.getElementById('controller'));

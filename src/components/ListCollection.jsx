@@ -13,6 +13,9 @@ class ListCollection extends Component {
     };
     this.handleChangeText = this.handleChangeText.bind(this);
     this.handleClickList = this.handleClickList.bind(this);
+    this.createNewMemo = this.createNewMemo.bind(this);
+    this.deleteCurrentMemo = this.deleteCurrentMemo.bind(this);
+    this.search = this.search.bind(this);
 
     //表示用のメモデータ
     this.dataForList = [];
@@ -21,6 +24,7 @@ class ListCollection extends Component {
 
     this.filteredCurrentMemo = null;
     this.stashedCurrentMemo = null;
+    this.textComponent = null;
 
 
   }
@@ -32,7 +36,7 @@ class ListCollection extends Component {
       return;
     }
 
-    let memo = new Memo();
+    const memo = new Memo();
     this.state.data.unshift(memo);
     this.setCurrentMemo(memo);
   }
@@ -60,8 +64,8 @@ class ListCollection extends Component {
     if (this.searchWord === "") {
       return this.state.data;
     }
-    let filteredData = [];
-    for (let memo of this.state.data) {
+    const filteredData = [];
+    for (const memo of this.state.data) {
       if (memo.text.indexOf(this.searchWord) !== -1) {
         filteredData.push(memo);
       }
@@ -84,17 +88,17 @@ class ListCollection extends Component {
   }
 
   load() {
-    let memoData = JSON.parse(localStorage.getItem('memoData'));
+    const memoData = JSON.parse(localStorage.getItem('memoData'));
     if (memoData === null) {
       return;
     }
 
     //localStorageは文字列しか保存出来ないので数字を保存すると文字になってしまう。
-    let currentMemoId = parseInt(localStorage.getItem('currentMemoId'), 10);
+    const currentMemoId = parseInt(localStorage.getItem('currentMemoId'), 10);
 
-    let tmp = [];
-    for (let v of memoData) {
-      let memo = new Memo(v.data);
+    const tmp = [];
+    for (const v of memoData) {
+      const memo = new Memo(v.data);
       tmp.push(memo);
       if (currentMemoId && v.data.id === currentMemoId) {
         this.setCurrentMemo(memo);
@@ -131,8 +135,8 @@ class ListCollection extends Component {
     if (this.state.currentMemo === null) {
       return;
     }
-    let tmp = [];
-    for (let v of this.state.data) {
+    const tmp = [];
+    for (const v of this.state.data) {
       if (v.id !== this.state.currentMemo.id) {
         tmp.push(v);
       }

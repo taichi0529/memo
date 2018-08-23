@@ -7,6 +7,7 @@ class Text extends Component {
       currentMemo: null
     };
     this.handleChangeText = this.handleChangeText.bind(this);
+    this.setCurrentMemo = this.setCurrentMemo.bind(this);
   }
 
   setCurrentMemo(memo) {
@@ -15,7 +16,7 @@ class Text extends Component {
 
   handleChangeText(e) {
     this.props.handleChangeText();
-    let currentMemo = this.state.currentMemo;
+    const currentMemo = this.state.currentMemo;
     currentMemo.text = e.target.value;
     currentMemo.updateLastModified();
     this.setState({currentMemo: currentMemo});

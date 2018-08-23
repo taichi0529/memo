@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 
+/**
+ * 使っていないけどこんな風にComponentとして切り出すのもあり。
+ * メリットデメリットを考えてバランスよく。
+ */
 export default class extends Component {
 
   constructor(props) {
@@ -8,38 +12,13 @@ export default class extends Component {
   }
 
   handleClickList() {
-    this.props.handleClickList(this.props.memo);
   }
 
   render() {
-    //stateでやる方が正しいか？
-    //TODO 時間無いのでコピペ。後で直す。
-    if (this.props.active) {
-      return (
-        <li className="list__li list__li_active" onClick={this.handleClickList}>
-          <div className="list__li__div">
-            <p className="list__li__title">{this.props.memo.title}</p>
-            <p className="list__li__head">
-              <time className="list__li__time">{this.props.memo.lastModifiedForList}</time>
-              {this.props.memo.head}
-            </p>
-          </div>
-        </li>
-      );
-    }
-
-
     return (
-      <li className="list__li {this.props.active || }" onClick={this.handleClickList}>
-        <div className="list__li__div">
-          <p className="list__li__title">{this.props.memo.title}</p>
-          <p className="list__li__head">
-            <time className="list__li__time">{this.props.memo.lastModifiedForList}</time>
-            {this.props.memo.head}
-          </p>
-        </div>
-      </li>
+      <button className="controller__button controller__button_new" onClick={this.handleClickList}/>
     );
+
   }
 }
 
