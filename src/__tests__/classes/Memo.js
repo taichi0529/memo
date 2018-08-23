@@ -12,7 +12,7 @@ describe('Test for Memo class', () => {
     });
 
     test('リスト用で時間表示', () => {
-      let d = new Date();
+      const d = new Date();
       d.setHours(1);
       d.setMinutes(2);
       memo.data.lastModified = d.getTime();
@@ -21,7 +21,7 @@ describe('Test for Memo class', () => {
 
 
     test('リスト用で24時間より後の場合', () => {
-      let d = new Date();
+      const d = new Date();
       memo.data.lastModified = d.getTime() - 24 * 3600 * 1000;
       expect(memo.lastModifiedForList).toMatch(/\d{4}\/\d{1,2}\/\d{1,2}/);
     });
