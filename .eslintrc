@@ -3,14 +3,17 @@
     "browser": true,
     "jquery": true
   },
-  "extends": ["react-app", "eslint:recommended"],
+  "extends": [
+    "react-app",
+    "eslint:recommended"
+  ],
   "rules": {
     // === だけ許可
     "eqeqeq": "error",
     //インデントはスペース4つに強制
     "indent": [
       "error",
-      4,
+      2,
       {
         "SwitchCase": 1
       }
@@ -35,6 +38,7 @@
       "error",
       "always"
     ],
+    "prefer-const": "warn",
     //use strictを強制
     "strict": "error",
     // JSDocのコメントが有効じゃないと警告
