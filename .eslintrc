@@ -10,7 +10,7 @@
     //インデントはスペース4つに強制
     "indent": [
       "error",
-      4,
+      2,
       {
         "SwitchCase": 1
       }
@@ -35,6 +35,7 @@
       "error",
       "always"
     ],
+    "prefer-const": "error",
     //use strictを強制
     "strict": "error",
     // JSDocのコメントが有効じゃないと警告
